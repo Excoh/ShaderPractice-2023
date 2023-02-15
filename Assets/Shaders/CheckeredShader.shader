@@ -1,9 +1,8 @@
-Shader "Experimental Working/WorkingShader"
+Shader "Unlit/CheckeredShader"
 {
     Properties
     {
-        //_MainTex ("Texture", 2D) = "white" {}
-        _MainColor ("Main Color", Color) = (1,1,1,1)
+        _MainTex ("Texture", 2D) = "white" {}
     }
     SubShader
     {
@@ -17,7 +16,6 @@ Shader "Experimental Working/WorkingShader"
             #pragma fragment frag
             // make fog work
             #pragma multi_compile_fog
-            #define PI 3.141592653589793238462643383279
 
             #include "UnityCG.cginc"
 
@@ -34,15 +32,13 @@ Shader "Experimental Working/WorkingShader"
                 float4 vertex : SV_POSITION;
             };
 
-            //sampler2D _MainTex;
-            //float4 _MainTex_ST;
-            float4 _MainColor;
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                //o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.uv = v.uv;
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
@@ -50,21 +46,11 @@ Shader "Experimental Working/WorkingShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // sample the texture
-                //fixed4 col = tex2D(_MainTex, i.uv);
-                // apply fog
-                //UNITY_APPLY_FOG(i.fogCoord, col);
-                //return col;
-                //return _MainColor;
-
-                //float r = abs(sin(_Time.y));
-                //float g = abs(sin(_Time.x));
-                //float b = abs(sin(_Time.y*PI));
-                //return float4 (r,g,b,1.0);
-
-                // from GLSL
-                // i.uv == gl_FragCoord.xy / u_resolution
-                return float4 (i.uv.x, i.uv.y, 0.0, 1.0);
+                float ux = frac(i.uv.x * 4.0);
+                float uy = frac(i.uv.y * 4.0);
+                float uxy = ux + uy;
+                float final = smoothstep(0.0,1.5,uxy);
+                return fixed4(final.xxx, 1.0);
             }
             ENDCG
         }
