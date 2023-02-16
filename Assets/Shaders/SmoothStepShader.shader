@@ -50,6 +50,9 @@ Shader "Unlit/SmoothStepShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                // Any value between _BottomThreshold and _TopThreshold
+                // are Hermite interpolated. If the value < _BottomThreshold
+                // return 0.0, if value > _TopThreshold, return 1.0
                 fixed3 col = smoothstep(_BottomThreshold, _TopThreshold, i.uv.x);
                 return float4(col, 1.0);
             }

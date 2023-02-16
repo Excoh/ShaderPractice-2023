@@ -77,6 +77,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MouseHit: {r: 3.9999008, g: 222.99997, b: 0, a: 0}
-    - _ScreenSize: {r: 268, g: 268, b: 0, a: 0}
+    - _MouseHit: {r: 324.49997, g: 345, b: 0, a: 0}
+    - _ScreenSize: {r: 353, g: 353, b: 0, a: 0}
   m_BuildTextureStacks: []
