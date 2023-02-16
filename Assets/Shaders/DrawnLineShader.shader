@@ -1,9 +1,8 @@
-Shader "Experimental Working/WorkingShader"
+Shader "Unlit/DrawnLineShader"
 {
     Properties
     {
-        //_MainTex ("Texture", 2D) = "white" {}
-        _MainColor ("Main Color", Color) = (1,1,1,1)
+        _LineThickness ("Line Thickness", Range(0.0, 1.0)) = 0.02
     }
     SubShader
     {
@@ -17,7 +16,6 @@ Shader "Experimental Working/WorkingShader"
             #pragma fragment frag
             // make fog work
             #pragma multi_compile_fog
-            #define PI 3.141592653589793238462643383279
 
             #include "UnityCG.cginc"
 
@@ -34,20 +32,17 @@ Shader "Experimental Working/WorkingShader"
                 float4 vertex : SV_POSITION;
             };
 
-            //sampler2D _MainTex;
-            //float4 _MainTex_ST;
-            float4 _MainColor;
+            float _LineThickness;
 
             float plot(float2 uv)
             {
-                return smoothstep(0.0, 0.02, abs(uv.x - uv.y));
+                return smoothstep(_LineThickness, 0.0, abs(uv.x - uv.y));
             }
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                //o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.uv = v.uv;
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
@@ -55,21 +50,11 @@ Shader "Experimental Working/WorkingShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // sample the texture
-                //fixed4 col = tex2D(_MainTex, i.uv);
-                // apply fog
-                //UNITY_APPLY_FOG(i.fogCoord, col);
-                //return col;
-                //return _MainColor;
+                float pct = plot(i.uv);
+                float3 col = float3 (i.uv.xxx);
+                col = (1.0-pct)*col+pct*float3(0.0,1.0,0.0);
 
-                //float r = abs(sin(_Time.y));
-                //float g = abs(sin(_Time.x));
-                //float b = abs(sin(_Time.y*PI));
-                //return float4 (r,g,b,1.0);
-
-                // from GLSL
-                // i.uv == gl_FragCoord.xy / u_resolution
-                return float4 (i.uv.x, i.uv.y, 0.0, 1.0);
+                return fixed4(col, 1.0);
             }
             ENDCG
         }
