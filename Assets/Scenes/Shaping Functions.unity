@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 1739532438}
   - component: {fileID: 1739532437}
   m_Layer: 0
-  m_Name: Drawn Line Plane
+  m_Name: Power Plane
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -452,7 +452,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: faf30c4325343aa4db9c3c88742607d4, type: 2}
+  - {fileID: 2100000, guid: fced0b84b9720eb46ae2200951989f30, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
