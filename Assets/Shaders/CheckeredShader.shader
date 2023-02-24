@@ -3,6 +3,7 @@ Shader "Unlit/CheckeredShader"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _Division ("Divisions", float) = 4.0
     }
     SubShader
     {
@@ -34,6 +35,7 @@ Shader "Unlit/CheckeredShader"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float _Division;
 
             v2f vert (appdata v)
             {
@@ -46,8 +48,8 @@ Shader "Unlit/CheckeredShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float ux = frac(i.uv.x * 4.0);
-                float uy = frac(i.uv.y * 4.0);
+                float ux = frac(i.uv.x * _Division);
+                float uy = frac(i.uv.y * _Division);
                 float uxy = ux + uy;
                 float final = smoothstep(0.0,1.5,uxy);
                 return fixed4(final.xxx, 1.0);
