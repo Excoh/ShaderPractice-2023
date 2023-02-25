@@ -1,10 +1,9 @@
-Shader "Unlit/ExponentialEaseInOutShader"
+Shader "Unlit/#NAME#"
 {
     Properties
     {
+        _LineThickness ("Line Thickness", Range(-1.0, 1.0)) = 0.025
         _LineColor ("Line Color", Color) = (0.0, 1.0, 0.0, 1.0)
-        _LineThickness ("Line Thickness", float) = 0.025
-        _CtrlPoint ("Control Point", Range(0.00001, 1.0)) = 0.5
     }
     SubShader
     {
@@ -17,8 +16,14 @@ Shader "Unlit/ExponentialEaseInOutShader"
             // Pre-defined minimal vertex shader from "UnityCG.cginc"
             #pragma vertex vert_img
             #pragma fragment frag
+            #define PI 3.14159265358979
+            #define EPSILON 0.000001
 
             #include "UnityCG.cginc"
+            // This is a custom plotting helper that I wrote
+            // plot(uv, y, lineThickness)
+            // show(uv, y, lineColor, lineThickness)
+            // add_plot(uv, y, existing_plot, lineColor, lineThickness)
             #include "./PlottingHelpers.cginc"
 
             //struct appdata_img
@@ -48,28 +53,14 @@ Shader "Unlit/ExponentialEaseInOutShader"
             //    UNITY_VERTEX_OUTPUT_STEREO
             //};
 
-            sampler2D _MainTex;
             float4 _LineColor;
             float _LineThickness;
-            float _CtrlPoint;
-
-            float exponentialEasing(float x, float ctrlPoint)
-            {
-                if (ctrlPoint < 0.5)
-                {
-                    //emphasis or ease-in
-                    return pow(x, 2 * ctrlPoint);
-                } else
-                {
-                    //de-emphasis or ease-out
-                    return pow(x, 1.0/(1-ctrlPoint));
-                }
-            }
 
             fixed4 frag (v2f_img i) : SV_Target
             {
-                float y = exponentialEasing(i.uv.x, _CtrlPoint);
-                float3 col = show(i.uv, y, _LineColor);
+                // y=x
+                float y = i.uv.x;
+                float3 col = show(i.uv, y, _LineColor, _LineThickness);
                 return fixed4 (col, 1.0);
             }
             ENDCG
