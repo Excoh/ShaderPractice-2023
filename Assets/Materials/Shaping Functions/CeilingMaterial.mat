@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PowerMaterial
-  m_Shader: {fileID: 4800000, guid: f3072b287157d5c4d8e0c2f1c00649c3, type: 3}
+  m_Name: CeilingMaterial
+  m_Shader: {fileID: 4800000, guid: b6a9cba597213104080c99d22ae441b9, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -59,13 +59,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
+    - _CeilVal: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _LineThickness: 0.02
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -78,8 +78,4 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ExpColor: {r: 1, g: 0, b: 0.1487732, a: 1}
-    - _LineColor: {r: 0.8623339, g: 0.9150943, b: 0.11654504, a: 1}
-    - _LogColor: {r: 0.96469927, g: 1, b: 0, a: 1}
-    - _PowColor: {r: 0, g: 0.029119492, b: 1, a: 1}
   m_BuildTextureStacks: []
