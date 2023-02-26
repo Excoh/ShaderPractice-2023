@@ -217,10 +217,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 333677623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6adca74052e4430418bd196357f1b47e, type: 3}
+  m_Script: {fileID: 11500000, guid: a95f4f5362acb48409f9667967d5b5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 537b626c6b868164793c8ef21c04c605, type: 2}
+  MouseHoverHitPoint: {x: 0, y: 0, z: 0}
+  MouseHoverScreenPoint: {x: 0, y: 0, z: 0}
+  MouseButtonHitPoint: {x: 0, y: 0, z: 0}
+  HitColliderSize: {x: 0, y: 0, z: 0}
 --- !u!1 &478425586
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,6 +236,7 @@ GameObject:
   - component: {fileID: 478425589}
   - component: {fileID: 478425588}
   - component: {fileID: 478425587}
+  - component: {fileID: 478425591}
   m_Layer: 0
   m_Name: Double Cubic Seat
   m_TagString: Untagged
@@ -319,6 +323,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &478425591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478425586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f7f9695c0edab7469084a293637190a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 537b626c6b868164793c8ef21c04c605, type: 2}
 --- !u!1 &935492277
 GameObject:
   m_ObjectHideFlags: 0
