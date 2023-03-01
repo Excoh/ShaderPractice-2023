@@ -1,0 +1,78 @@
+Shader "Shaping Function/ExponentialImpulseShader"
+{
+    Properties
+    {
+        _LineThickness ("Line Thickness", Range(-1.0, 1.0)) = 0.025
+        _LineColor ("Line Color", Color) = (0.0, 1.0, 0.0, 1.0)
+        _K ("K", float) = 1.0
+    }
+    SubShader
+    {
+        Tags { "RenderType"="Opaque" }
+        LOD 100
+
+        Pass
+        {
+            CGPROGRAM
+            // Pre-defined minimal vertex shader from "UnityCG.cginc"
+            #pragma vertex vert_img
+            #pragma fragment frag
+            #define PI 3.14159265358979
+            #define EPSILON 0.000001
+
+            #include "UnityCG.cginc"
+            // This is a custom plotting helper that I wrote
+            // plot(uv, y, lineThickness)
+            // show(uv, y, lineColor, lineThickness)
+            // add_plot(uv, y, existing_plot, lineColor, lineThickness)
+            #include "./PlottingHelpers.cginc"
+
+            //struct appdata_img
+            //{
+            //    float4 vertex : POSITION;
+            //    half2 texcoord : TEXCOORD0;
+            //    UNITY_VERTEX_INPUT_INSTANCE_ID
+            //};
+
+            //v2f_img vert_img( appdata_img v )
+            //{
+            //    v2f_img o;
+            //    UNITY_INITIALIZE_OUTPUT(v2f_img, o);
+            //    UNITY_SETUP_INSTANCE_ID(v);
+            //    UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+            //
+            //    o.pos = UnityObjectToClipPos (v.vertex);
+            //    o.uv = v.texcoord;
+            //    return o;
+            //}
+
+            //struct v2f_img
+            //{
+            //    float4 pos : SV_POSITION;
+            //    half2 uv : TEXCOORD0;
+            //    UNITY_VERTEX_INPUT_INSTANCE_ID
+            //    UNITY_VERTEX_OUTPUT_STEREO
+            //};
+
+            float4 _LineColor;
+            float _LineThickness;
+            float _K;
+
+            // Adapted from Inigo Quilez's useful functions
+            // https://iquilezles.org/articles/functions/
+            float expImpulse(float x, float k)
+            {
+                const float h = k * x;
+                return h * exp(1.0-h);
+            }
+
+            fixed4 frag (v2f_img i) : SV_Target
+            {
+                float y = expImpulse(i.uv.x, _K);
+                float3 col = show(i.uv, y, _LineColor, _LineThickness);
+                return fixed4 (col, 1.0);
+            }
+            ENDCG
+        }
+    }
+}
