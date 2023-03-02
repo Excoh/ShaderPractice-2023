@@ -1,9 +1,9 @@
-Shader "Shaping Function/#NAME#"
+Shader "Color/LerpingColorShader"
 {
     Properties
     {
-        _LineThickness ("Line Thickness", Range(-1.0, 1.0)) = 0.025
-        _LineColor ("Line Color", Color) = (0.0, 1.0, 0.0, 1.0)
+        _ColorA ("Color A", Color) = (1.0, 0.0, 0.0, 1.0)
+        _ColorB ("Color B", Color) = (0.0, 1.0, 0.0, 1.0)
     }
     SubShader
     {
@@ -16,16 +16,8 @@ Shader "Shaping Function/#NAME#"
             // Pre-defined minimal vertex shader from "UnityCG.cginc"
             #pragma vertex vert_img
             #pragma fragment frag
-            #define PI 3.14159265358979
-            #define EPSILON 0.000001
 
             #include "UnityCG.cginc"
-            // This is a custom plotting helper that I wrote
-            // adapted from the Book of Shader tutorial
-            // plot(uv, y, lineThickness)
-            // show(uv, y, lineColor, lineThickness)
-            // add_plot(uv, y, existing_plot, lineColor, lineThickness)
-            #include "./PlottingHelpers.cginc"
 
             //struct appdata_img
             //{
@@ -54,15 +46,16 @@ Shader "Shaping Function/#NAME#"
             //    UNITY_VERTEX_OUTPUT_STEREO
             //};
 
-            float4 _LineColor;
-            float _LineThickness;
+            sampler2D _MainTex;
+            vector <float, 4> _ColorA;
+            vector <float, 4> _ColorB;
 
             fixed4 frag (v2f_img i) : SV_Target
             {
-                // y=x
-                float y = i.uv.x;
-                float3 col = show(i.uv, y, _LineColor, _LineThickness);
-                return fixed4 (col, 1.0);
+                fixed4 col = tex2D(_MainTex, i.uv);
+                float pct = abs(sin(_Time.x));
+                col = lerp(_ColorA, _ColorB, pct);
+                return col;
             }
             ENDCG
         }

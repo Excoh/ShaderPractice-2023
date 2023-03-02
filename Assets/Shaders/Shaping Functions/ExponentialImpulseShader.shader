@@ -5,6 +5,8 @@ Shader "Shaping Function/ExponentialImpulseShader"
         _LineThickness ("Line Thickness", Range(-1.0, 1.0)) = 0.025
         _LineColor ("Line Color", Color) = (0.0, 1.0, 0.0, 1.0)
         _K ("K", float) = 1.0
+        _A ("A", float) = 1.0
+        _B ("B", float) = 1.0
     }
     SubShader
     {
@@ -57,6 +59,8 @@ Shader "Shaping Function/ExponentialImpulseShader"
             float4 _LineColor;
             float _LineThickness;
             float _K;
+            float _A;
+            float _B;
 
             // Adapted from Inigo Quilez's useful functions
             // https://iquilezles.org/articles/functions/
@@ -66,9 +70,15 @@ Shader "Shaping Function/ExponentialImpulseShader"
                 return h * exp(1.0-h);
             }
 
+            float continuousExponential(float x, float a, float b)
+            {
+                return a * exp(-b * x);
+            }
+
             fixed4 frag (v2f_img i) : SV_Target
             {
                 float y = expImpulse(i.uv.x, _K);
+                //float y = continuousExponential(i.uv.x, _A, _B);
                 float3 col = show(i.uv, y, _LineColor, _LineThickness);
                 return fixed4 (col, 1.0);
             }

@@ -1,4 +1,4 @@
-Shader "Shaping Function/#NAME#"
+Shader "Shaping Function/AbsoluteValueShader"
 {
     Properties
     {
@@ -21,7 +21,6 @@ Shader "Shaping Function/#NAME#"
 
             #include "UnityCG.cginc"
             // This is a custom plotting helper that I wrote
-            // adapted from the Book of Shader tutorial
             // plot(uv, y, lineThickness)
             // show(uv, y, lineColor, lineThickness)
             // add_plot(uv, y, existing_plot, lineColor, lineThickness)
@@ -60,8 +59,9 @@ Shader "Shaping Function/#NAME#"
             fixed4 frag (v2f_img i) : SV_Target
             {
                 // y=x
-                float y = i.uv.x;
+                float y = 1 - abs(cos(PI * i.uv.x));
                 float3 col = show(i.uv, y, _LineColor, _LineThickness);
+                vector <float, 3> testVector = {1.0, 1.0, 1.0};
                 return fixed4 (col, 1.0);
             }
             ENDCG
