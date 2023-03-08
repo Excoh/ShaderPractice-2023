@@ -46,7 +46,7 @@ Shader "Color/LerpingColorShader"
             //    UNITY_VERTEX_OUTPUT_STEREO
             //};
 
-            sampler2D _MainTex;
+            sampler2D _MainTex; 
             vector <float, 4> _ColorA;
             vector <float, 4> _ColorB;
 
