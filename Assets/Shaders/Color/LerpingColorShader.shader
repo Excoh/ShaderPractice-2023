@@ -2,6 +2,7 @@ Shader "Color/LerpingColorShader"
 {
     Properties
     {
+        _TransitionSpeed ("Transition Speed", float) = 1.0
         _ColorA ("Color A", Color) = (1.0, 0.0, 0.0, 1.0)
         _ColorB ("Color B", Color) = (0.0, 1.0, 0.0, 1.0)
     }
@@ -16,6 +17,7 @@ Shader "Color/LerpingColorShader"
             // Pre-defined minimal vertex shader from "UnityCG.cginc"
             #pragma vertex vert_img
             #pragma fragment frag
+            #define PI 3.14159265358979323
 
             #include "UnityCG.cginc"
 
@@ -49,11 +51,12 @@ Shader "Color/LerpingColorShader"
             sampler2D _MainTex; 
             vector <float, 4> _ColorA;
             vector <float, 4> _ColorB;
+            float _TransitionSpeed;
 
             fixed4 frag (v2f_img i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
-                float pct = abs(sin(_Time.x));
+                float pct = abs(sin(PI + _Time.x * _TransitionSpeed));
                 col = lerp(_ColorA, _ColorB, pct);
                 return col;
             }

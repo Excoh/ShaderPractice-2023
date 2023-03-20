@@ -7,23 +7,24 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LerpingColorMaterial
-  m_Shader: {fileID: 4800000, guid: f1f1c0e9c387e9f47a7da0d5cd69c1c3, type: 3}
+  m_Name: BasicSpriteShader
+  m_Shader: {fileID: 4800000, guid: 6baf57054aafde54faaadb3bd0efc968, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3001
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats:
-    - _TransitionSpeed: 20
-    m_Colors:
-    - _ColorA: {r: 0.9058824, g: 0.34901962, b: 0.24313727, a: 1}
-    - _ColorB: {r: 0.34117648, g: 0.5686275, b: 0.8235295, a: 1}
+    m_Floats: []
+    m_Colors: []
   m_BuildTextureStacks: []

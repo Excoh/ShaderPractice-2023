@@ -7,15 +7,17 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SunriseSunsetMaterial
-  m_Shader: {fileID: 4800000, guid: 9347ef1de56513d4faeff94d6097734a, type: 3}
-  m_ValidKeywords: []
+  m_Name: Basic Red
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ValidKeywords:
+  - _ALPHABLEND_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -61,26 +63,20 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
-    - _Mode: 0
+    - _Mode: 2
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
+    - _SrcBlend: 5
     - _UVSec: 0
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SunriseGround: {r: 0.14324494, g: 0.19292724, b: 0.3490566, a: 1}
-    - _SunriseHorizon: {r: 0.9333334, g: 0.32156864, b: 0, a: 1}
-    - _SunriseSky: {r: 0.2392157, g: 0.5803922, b: 0.8470589, a: 1}
-    - _SunsetGround: {r: 0.475, g: 0.2774, b: 0.1786, a: 1}
-    - _SunsetHorizon: {r: 0.26415092, g: 0.1353981, b: 0.071021706, a: 1}
-    - _SunsetSky: {r: 0.936, g: 0.3153181, b: 0.15912001, a: 1}
   m_BuildTextureStacks: []
