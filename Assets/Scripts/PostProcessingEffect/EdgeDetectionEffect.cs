@@ -9,10 +9,6 @@ public class EdgeDetectionEffect : MonoBehaviour
     private void Awake()
     {
         material = new Material(Shader.Find("PostProcessing/EdgeDetectionShader"));
-    }
-
-    private void Start()
-    {
         cam = GetComponent<Camera>();
         cam.depthTextureMode = cam.depthTextureMode | DepthTextureMode.DepthNormals;
     }
