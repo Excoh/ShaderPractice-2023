@@ -521,9 +521,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 404549582}
+  - component: {fileID: 404549583}
   - component: {fileID: 404549581}
   - component: {fileID: 404549580}
-  - component: {fileID: 404549583}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -564,7 +564,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 26.991467
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -589,8 +589,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 404549579}
-  m_LocalRotation: {x: 0.12948349, y: -0.33442038, z: 0.046444885, w: 0.93233037}
-  m_LocalPosition: {x: 76.35711, y: 84.73989, z: -75.50644}
+  m_LocalRotation: {x: 0.11377452, y: -0.34213847, z: 0.041775793, w: 0.9318001}
+  m_LocalPosition: {x: 117.48805, y: 103.06779, z: -125.4642}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -610,8 +610,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-  Thickness: 1
-  Threshold: 0
+  Thickness: 0.55
+  MinThreshold: 0.09009009
+  MaxThreshold: 0.19819814
 --- !u!1 &452572060
 GameObject:
   m_ObjectHideFlags: 0
@@ -3617,8 +3618,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2120818236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.314968, y: 6.282154, z: 10.214397}
-  m_LocalScale: {x: 13.349931, y: 13.349931, z: 13.349931}
+  m_LocalPosition: {x: 6.315, y: 6.282154, z: 10.214}
+  m_LocalScale: {x: 22.672188, y: 22.672188, z: 22.672188}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}

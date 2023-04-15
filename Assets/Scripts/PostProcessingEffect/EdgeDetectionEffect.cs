@@ -5,8 +5,10 @@ public class EdgeDetectionEffect : MonoBehaviour
 {
     public Color OutlineColor = Color.white;
     public float Thickness = 1.0f;
-    [Range(0.0f, 1.0f)]
-    public float Threshold = 0.5f;
+    [HideInInspector][Range(0.0f, 1.0f)]
+    public float MinThreshold = 0.5f;
+    [HideInInspector][Range(0.0f, 1.0f)]
+    public float MaxThreshold = 0.0f;
     private Material material;
     private Camera cam;
 
@@ -19,8 +21,10 @@ public class EdgeDetectionEffect : MonoBehaviour
 
     private void Update()
     {
+        MaxThreshold = Mathf.Max(MaxThreshold, MinThreshold);
         material?.SetFloat("_Thickness", Thickness);
-        material?.SetFloat("_Threshold", Threshold*0.2f);
+        material?.SetFloat("_MinThreshold", MinThreshold);
+        material?.SetFloat("_MaxThreshold", MaxThreshold);
         material?.SetVector("_OutlineColor", OutlineColor);
     }
 
