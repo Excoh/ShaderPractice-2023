@@ -609,6 +609,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d41923fd4a4914ea06107695779e87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  Thickness: 1
+  Threshold: 0
 --- !u!1 &452572060
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,12 +2,18 @@ Shader "PostProcessing/EdgeDetectionShader"
 {
     Properties
     {
+        _CurrentTexture ("Current Texture", 2D) = "white" {}
         _Thickness ("Thickness", float) = 1.0
+        _OutlineColor ("Outline Color", Color) = (1.0, 1.0, 1.0, 1.0)
     }
     SubShader
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
+
+        //GrabPass {
+        //    "_GrabTexture"
+        //}
 
         Pass
         {
@@ -21,22 +27,29 @@ Shader "PostProcessing/EdgeDetectionShader"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                fixed4 color : COLOR;
             };
 
             struct v2f
             {
                 float2 uv : TEXCOORD0;
+                //float4 grabPos : TEXCOORD1;
                 float4 vertex : SV_POSITION;
             };
 
             float _Thickness;
+            float _Threshold = 0.5;
+            float4 _OutlineColor;
             sampler2D _CameraDepthNormalsTexture;
+            //sampler2D _GrabTexture;
+            sampler2D _CurrentTexture;
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
+                //o.grabPos = ComputeGrabScreenPos(o.vertex);
                 return o;
             }
 
@@ -76,7 +89,8 @@ Shader "PostProcessing/EdgeDetectionShader"
                 float3 diffTLBR = abs(normal_TOP_LEFT - normal_BOT_RIGHT);
                 float3 diff = diffTLBR + diffTRBL;
                 float maxVal = max(max(diff.r,diff.g),diff.b);
-                return float4(maxVal.xxx, 1.0);
+                maxVal = smoothstep(0.2, 0.7, maxVal);
+                return lerp(tex2D(_CurrentTexture, i.uv), maxVal * _OutlineColor, maxVal);
             }
             ENDCG
         }
