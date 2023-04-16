@@ -609,10 +609,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d41923fd4a4914ea06107695779e87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-  Thickness: 0.55
-  MinThreshold: 0.09009009
-  MaxThreshold: 0.19819814
+  OutlineColor: {r: 0.6792453, g: 0.30215257, b: 0, a: 1}
+  Thickness: 1
+  DepthMinThreshold: 0
+  DepthMaxThreshold: 0.053565174
+  NormalMaxThreshold: 0.16753927
+  NormalMinThreshold: 0.14659686
 --- !u!1 &452572060
 GameObject:
   m_ObjectHideFlags: 0

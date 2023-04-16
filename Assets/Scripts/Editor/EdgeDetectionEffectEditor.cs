@@ -16,17 +16,28 @@ public class EdgeDetectionEffectEditor : Editor
     {
         base.OnInspectorGUI();
         EditorGUI.BeginChangeCheck();
+        
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("MinMax Threshold", new GUILayoutOption[] { GUILayout.MaxWidth(EditorGUIUtility.labelWidth) });
-        effect.MinThreshold = EditorGUILayout.FloatField(effect.MinThreshold, layoutOptions);
+        EditorGUILayout.LabelField("Depth MinMax Threshold", new GUILayoutOption[] { GUILayout.MaxWidth(EditorGUIUtility.labelWidth) });
+        effect.DepthMinThreshold = EditorGUILayout.FloatField(effect.DepthMinThreshold, layoutOptions);
         GUILayout.Space(SLIDER_PADDING);
-        EditorGUILayout.MinMaxSlider(ref effect.MinThreshold, ref effect.MaxThreshold, 0, 1);
+        EditorGUILayout.MinMaxSlider(ref effect.DepthMinThreshold, ref effect.DepthMaxThreshold, 0, 1);
         GUILayout.Space(SLIDER_PADDING);
-        effect.MaxThreshold = EditorGUILayout.FloatField(effect.MaxThreshold, layoutOptions);
+        effect.DepthMaxThreshold = EditorGUILayout.FloatField(effect.DepthMaxThreshold, layoutOptions);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Normal MinMax Threshold", new GUILayoutOption[] { GUILayout.MaxWidth(EditorGUIUtility.labelWidth) });
+        effect.NormalMinThreshold = EditorGUILayout.FloatField(effect.NormalMinThreshold, layoutOptions);
+        GUILayout.Space(SLIDER_PADDING);
+        EditorGUILayout.MinMaxSlider(ref effect.NormalMinThreshold, ref effect.NormalMaxThreshold, 0, 1);
+        GUILayout.Space(SLIDER_PADDING);
+        effect.NormalMaxThreshold = EditorGUILayout.FloatField(effect.NormalMaxThreshold, layoutOptions);
+        EditorGUILayout.EndHorizontal();
+        
         if (EditorGUI.EndChangeCheck())
         {
             EditorUtility.SetDirty(effect);
         }
-        EditorGUILayout.EndHorizontal();
     }
 }
