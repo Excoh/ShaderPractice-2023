@@ -5,6 +5,10 @@ public static class MouseButton
     public static int Right = 1;
     public static int Middle = 2;
 }
+/// <summary>
+/// How to use:
+/// Attach to
+/// </summary>
 public class CameraPointer : MonoBehaviour
 {
     public static CameraPointer Instance { get; private set; }

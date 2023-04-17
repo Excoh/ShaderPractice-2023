@@ -1315,6 +1315,7 @@ GameObject:
   - component: {fileID: 1106985426}
   - component: {fileID: 1106985425}
   - component: {fileID: 1106985424}
+  - component: {fileID: 1106985428}
   m_Layer: 0
   m_Name: Mouse Plane
   m_TagString: Untagged
@@ -1401,6 +1402,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1106985428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106985423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b815b92ffc4b274690955658f63fd04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 62836436f89dc2c489452d16260ee6f6, type: 2}
+  texture: {fileID: 2800000, guid: 928a716a0f62f8146bb3d53c2314b202, type: 3}
 --- !u!1 &1215383775
 GameObject:
   m_ObjectHideFlags: 0
