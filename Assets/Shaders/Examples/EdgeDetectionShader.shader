@@ -2,6 +2,7 @@ Shader "PostProcessing/EdgeDetectionShader"
 {
     Properties
     {
+        // No properties because everything is set by the EdgeDetectionEffect script.
     }
     SubShader
     {
@@ -47,6 +48,8 @@ Shader "PostProcessing/EdgeDetectionShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                // We retrieve the pixels that are edge adjacent to the current rendered pixel
+                // and calculate the depth and normal
                 float2 TOP_RIGHT = (float2 (1.0, 1.0) * _Thickness) / _ScreenParams.xy;
                 float2 BOT_RIGHT = (float2 (1.0, -1.0) * _Thickness) / _ScreenParams.xy;
                 float2 BOT_LEFT = (float2 (-1.0, -1.0) * _Thickness) / _ScreenParams.xy;
@@ -74,16 +77,20 @@ Shader "PostProcessing/EdgeDetectionShader"
                 normal_BOT_LEFT = (normal_BOT_LEFT * 0.5) + 0.5;
                 normal_TOP_LEFT = (normal_TOP_LEFT * 0.5) + 0.5;
 
+                // Calculate the normal difference that has the biggest value
                 float3 diff_normal_TRBL = abs(normal_TOP_RIGHT - normal_BOT_LEFT);
                 float3 diff_normal_TLBR = abs(normal_TOP_LEFT - normal_BOT_RIGHT);
                 float3 diff_normal = diff_normal_TLBR + diff_normal_TRBL;
                 float max_normal = max(max(diff_normal.r,diff_normal.g),diff_normal.b);
+                // We smoothstep it out to make it look cleaner
                 float smooth_normal = smoothstep(_NormalMinThreshold, _NormalMinThreshold+_NormalMaxThreshold, max_normal);
 
+                // Calculate the depth difference that has the biggest value
                 float diff_depth_TRBL = abs(depth_TOP_RIGHT - depth_BOT_LEFT);
                 float diff_depth_TLBR = abs(depth_TOP_LEFT - depth_BOT_RIGHT);
                 float max_depth = max(max(max(depth_TOP_RIGHT, depth_BOT_RIGHT), depth_BOT_LEFT),depth_TOP_LEFT);
                 float diff_depth = saturate((diff_depth_TRBL + diff_depth_TLBR)/max_depth);
+                // We smoothstep it out to make it look cleaner
                 float smooth_depth = smoothstep(_DepthMinThreshold, _DepthMinThreshold+_DepthMaxThreshold, diff_depth);
 
                 float final_outline = max(smooth_normal,smooth_depth);
