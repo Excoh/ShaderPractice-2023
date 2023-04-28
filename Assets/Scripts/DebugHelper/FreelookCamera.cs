@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace FreeLookCamera
@@ -13,9 +14,12 @@ namespace FreeLookCamera
 public class FreelookCamera : MonoBehaviour
 {
     // Update is called once per frame
-    public float cameraSpeed = 15.0f;
-    public float rotateCameraSpeed = 45.0f;
+    public float cameraPanSpeed = 15.0f;
+    public float rotationStartDeadZone = 0.5f;
+    [Range(0.0f, 1.0f)]
+    public float cameraRotateSpeed = 0.85f;
 
+    private Vector3 initialRotation;
     private Vector3 prevMousePos;
     private Vector3 currentMousePos;
 
@@ -26,53 +30,52 @@ public class FreelookCamera : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(FreeLookCamera.MouseButton.Right))
         {
             prevMousePos = Input.mousePosition;
+            initialRotation = transform.rotation.eulerAngles;
         }
-        if (IsRightClickPressed() && Input.GetKey(KeyCode.W))
+        if (IsRightClickHeld() && Input.GetKey(KeyCode.W))
         {
-            Camera.main.transform.position += transform.forward * Time.deltaTime * cameraSpeed;
+            Camera.main.transform.position += transform.forward * Time.deltaTime * cameraPanSpeed;
         }
-        else if (IsRightClickPressed() && Input.GetKey(KeyCode.S))
+        else if (IsRightClickHeld() && Input.GetKey(KeyCode.S))
         {
-            Camera.main.transform.position += transform.forward * -1 * Time.deltaTime * cameraSpeed;
+            Camera.main.transform.position += transform.forward * -1 * Time.deltaTime * cameraPanSpeed;
         }
 
-        if (IsRightClickPressed() && Input.GetKey(KeyCode.A))
+        if (IsRightClickHeld() && Input.GetKey(KeyCode.A))
         {
-            Camera.main.transform.Translate(Camera.main.transform.right * -1 * Time.deltaTime * cameraSpeed, Space.World);
+            Camera.main.transform.Translate(Camera.main.transform.right * -1 * Time.deltaTime * cameraPanSpeed, Space.World);
         }
-        else if (IsRightClickPressed() && Input.GetKey(KeyCode.D))
+        else if (IsRightClickHeld() && Input.GetKey(KeyCode.D))
         {
-            Camera.main.transform.Translate(Camera.main.transform.right * Time.deltaTime * cameraSpeed, Space.World);
-        }
-
-        if (IsRightClickPressed() && Input.GetKey(KeyCode.Q))
-        {
-            Camera.main.transform.position += Vector3.down * Time.deltaTime * cameraSpeed;
-        }
-        else if (IsRightClickPressed() && Input.GetKey(KeyCode.E))
-        {
-            Camera.main.transform.position += Vector3.up * Time.deltaTime * cameraSpeed;
+            Camera.main.transform.Translate(Camera.main.transform.right * Time.deltaTime * cameraPanSpeed, Space.World);
         }
 
-        if (IsRightClickPressed())
+        if (IsRightClickHeld() && Input.GetKey(KeyCode.Q))
+        {
+            Camera.main.transform.position += -Camera.main.transform.up * Time.deltaTime * cameraPanSpeed;
+        }
+        else if (IsRightClickHeld() && Input.GetKey(KeyCode.E))
+        {
+            Camera.main.transform.position += Camera.main.transform.up * Time.deltaTime * cameraPanSpeed;
+        }
+
+        if (IsRightClickHeld())
         {
             currentMousePos = Input.mousePosition;
             Vector3 direction = currentMousePos - prevMousePos;
-            if (Mathf.Abs(Vector3.Magnitude(direction)) > 0.0f)
+            float magnitude = Vector3.Magnitude(direction);
+            if (Mathf.Abs(magnitude) > rotationStartDeadZone)
             {
-                Camera.main.transform.Rotate(0, direction.x * Time.deltaTime * rotateCameraSpeed, 0f, Space.World);
-                Camera.main.transform.Rotate(transform.right, -direction.y * Time.deltaTime * rotateCameraSpeed, Space.World);
+                Vector3 newRotation = initialRotation + new Vector3(-direction.y, direction.x, 0) * cameraRotateSpeed;
+                transform.rotation = Quaternion.Euler(newRotation);
             }
-            prevMousePos = currentMousePos;
         }
-        
-
     }
 
-    private bool IsRightClickPressed()
+    private bool IsRightClickHeld()
     {
         return Input.GetMouseButton(FreeLookCamera.MouseButton.Right);
     }
