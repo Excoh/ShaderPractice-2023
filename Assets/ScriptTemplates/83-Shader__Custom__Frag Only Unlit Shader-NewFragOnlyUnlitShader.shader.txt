@@ -2,7 +2,7 @@ Shader "Unlit/#NAME#"
 {
     Properties
     {
-        #NOTRIM#
+        _MainTex ("Texture", 2D) = "white" {}
     }
     SubShader
     {
