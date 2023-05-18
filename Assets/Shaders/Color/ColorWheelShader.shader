@@ -2,12 +2,11 @@ Shader "Color/ColorWheelShader"
 {
     Properties
     {
-        
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
-        LOD 100
+        Tags { "Queue"="Transparent" "RenderType"="Transparent" }
+        Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
         {
@@ -73,8 +72,16 @@ Shader "Color/ColorWheelShader"
                 float radius = length(toCenter)*2.0;
                 // Map the angle (-PI to PI) to the Hue (from 0 to 1)
                 // and the Saturation to the radius
-                float3 color = hsb2rgb(float3((angle/TWO_PI)+0.5,radius,1.0));
-                return float4 (color.xyz, 1.0);
+                // Spin around the unit circle by adding _Time.z to the angle
+                float3 color = hsb2rgb(float3(((angle+_Time.z)/TWO_PI)+0.5,radius,1.0));
+                
+                // Create a circle mask
+                if (abs(distance(float2(0.5,0.5), i.uv)) < 0.5) {
+                    return float4 (color.xyz, 1.0);
+                }
+                else {
+                    return float4 (0,0,0,0);
+                }
             }
             ENDCG
         }

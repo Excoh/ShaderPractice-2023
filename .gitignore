@@ -491,3 +491,5 @@ FodyWeavers.xsd
 
 # Dumb mac stuff
 *.DS_Store
+/Assets/Scenes/MelancholiaScene
+/Assets/Scenes/MelancholiaScene.meta

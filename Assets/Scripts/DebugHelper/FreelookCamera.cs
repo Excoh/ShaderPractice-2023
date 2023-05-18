@@ -13,7 +13,6 @@ namespace FreeLookCamera
 [RequireComponent(typeof(Camera))]
 public class FreelookCamera : MonoBehaviour
 {
-    // Update is called once per frame
     public float cameraPanSpeed = 15.0f;
     public float rotationStartDeadZone = 0.5f;
     [Range(0.0f, 1.0f)]
